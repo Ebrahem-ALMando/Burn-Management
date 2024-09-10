@@ -235,23 +235,5 @@ namespace Burn_management
                 BTN_Login.PerformClick();
             }
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TX_Password.Text = "20012001";
-            if (comboBox1.SelectedIndex == 0)
-            {
-                TX_UserName.Text = "ebrahem-m";
-               
-            }
-            else if (comboBox1.SelectedIndex == 1)
-            {
-                TX_UserName.Text = "shahenoo";
-            }
-            else
-            {
-                TX_UserName.Text = "ahmad";
-            }
-        }
     }
 }
