@@ -382,7 +382,6 @@
             this.MessageShow.ErrorOptions.CloseIconColor = System.Drawing.Color.Red;
             this.MessageShow.ErrorOptions.Font = new System.Drawing.Font("Cairo", 13.8F, System.Drawing.FontStyle.Bold);
             this.MessageShow.ErrorOptions.ForeColor = System.Drawing.Color.Red;
-            this.MessageShow.ErrorOptions.Icon = global::Burn_management.Properties.Resources.CourseHome;
             this.MessageShow.ErrorOptions.IconLeftMargin = 12;
             this.MessageShow.FadeCloseIcon = false;
             this.MessageShow.Host = Bunifu.UI.WinForms.BunifuSnackbar.Hosts.Screen;

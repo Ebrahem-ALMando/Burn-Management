@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Burn_management.Classes.Connection.UsersProcess
 {
@@ -15,9 +11,7 @@ namespace Burn_management.Classes.Connection.UsersProcess
         public static int idUser { get; set; } = 0;
         public static string nameUser { get; set; }
         public static string typeUser { get; set; }
-        /*Delete after*/
-        public static int idBranch { get; set; } = 0;
-        public static string nameBranch { get; set; }
+        public static bool isLogin { get; set; }
 
         Cls_AccessLayer_DB connection = new Cls_AccessLayer_DB();
         //==> Process Users Forms

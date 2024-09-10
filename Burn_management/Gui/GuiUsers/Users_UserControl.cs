@@ -1,28 +1,20 @@
 ﻿using Bunifu.UI.WinForms;
-using DevExpress.Export;
 using Burn_management.Classes;
 using Burn_management.Classes.Connection.UsersProcess;
 using Burn_management.Forms.FormsUser;
-using Burn_management.Gui.GuiHome;
 using Burn_management.Properties;
 using OfficeOpenXml;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Diagnostics;
 
 namespace Burn_management.Gui.GuiUsers
 {
     public partial class Users_UserControl : UserControl
     {
+        #region Var
         private int id;
         private string name;
         private string age;
@@ -35,6 +27,7 @@ namespace Burn_management.Gui.GuiUsers
         Form__AddUsers addUsers;
         Cls_UsersDB action = new Cls_UsersDB();
         private Form formMain;
+        #endregion
 
         public Users_UserControl(Form formMain)
         {
@@ -43,6 +36,7 @@ namespace Burn_management.Gui.GuiUsers
             this.formMain = formMain;
             loadFilterData();
         }
+        #region Function
         public static Users_UserControl Instance(Form form)
         {
             //==> Freeing resources and not cloning more than once
@@ -96,8 +90,8 @@ namespace Burn_management.Gui.GuiUsers
                 userName = dataGridViewUsers.CurrentRow.Cells[5].Value.ToString();
                 password = dataGridViewUsers.CurrentRow.Cells[6].Value.ToString();
                 typeUser = dataGridViewUsers.CurrentRow.Cells[7].Value.ToString();
-                /*Update In Prograss*/
-              /*  BTN_Delete.Enabled = (action.getDataIsCanDeleteUser(id).Rows.Count > 0) ? false : true;*/
+                BTN_Delete.Enabled = (Convert.ToBoolean(action.getDataIsCanDeleteUser(id).Rows[0][0].ToString()));
+
             }
         }
         private string getTypeSearch()
@@ -167,6 +161,7 @@ namespace Burn_management.Gui.GuiUsers
             {
                 getDataUsersDataEntryists();
             }
+            TX_Search.Clear();
         }
         private void showSuccessDeleteMessageData()
         {
@@ -176,6 +171,9 @@ namespace Burn_management.Gui.GuiUsers
         {
             MessageShow.Show(formMain, Resources.SuccessExportData, BunifuSnackbar.MessageTypes.Success, 3000, "", BunifuSnackbar.Positions.TopRight);
         }
+
+        #endregion
+        #region Event
         private void BTN_Add_Click(object sender, EventArgs e)
         {
             addUsers=new Form__AddUsers(formMain);
@@ -183,22 +181,18 @@ namespace Burn_management.Gui.GuiUsers
             addUsers.Dispose();
             getData();
         }
-
         private void BTN_Delete_Click(object sender, EventArgs e)
         {
             deleteData();
         }
-
         private void dataGridViewUsers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             getDataFromDGV();
         }
-
         private void dataGridViewUsers_SelectionChanged(object sender, EventArgs e)
         {
             getDataFromDGV();
         }
-
         private void dataGridViewUsers_KeyDown(object sender, KeyEventArgs e)
         {
             if (dataGridViewUsers.CurrentRow != null)
@@ -212,17 +206,14 @@ namespace Burn_management.Gui.GuiUsers
                 }
             }
         }
-
         private void BTN_Update_Click(object sender, EventArgs e)
         {
             updateData();
         }
-
         private void dataGridViewUsers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             updateData();
         }
-
         private void BTN_Export_Click(object sender, EventArgs e)
         {
             try
@@ -234,11 +225,12 @@ namespace Burn_management.Gui.GuiUsers
                     worksheet.Cells.Style.Font.Name = "Cairo";
                     worksheet.View.RightToLeft = true; // تعيين اتجاه النص إلى اليمين
                     worksheet.Cells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                  
                     // تنسيق رأس الأعمدة
                     for (int col = 1; col <= dataGridViewUsers.Columns.Count; col++)
                     {
                         worksheet.Column(col).Width = 12.5;
-                        worksheet.Column(dataGridViewUsers.Columns.Count).Width = 23;
+
                      
                         var cell = worksheet.Cells[1, col];
                  
@@ -249,7 +241,7 @@ namespace Burn_management.Gui.GuiUsers
                         cell.Style.Font.Color.SetColor(System.Drawing.Color.White); // تغيير لون الخط إلى أبيض
 
                     }
-
+                    worksheet.Column(dataGridViewUsers.Columns.Count).Width = 23;
                     // حلقة لنسخ البيانات من DataGridView إلى Excel
                     for (int row = 1; row <= dataGridViewUsers.Rows.Count; row++)
                     {
@@ -295,12 +287,10 @@ namespace Burn_management.Gui.GuiUsers
                 MessageBox.Show(ex.Message + "\nTry Agin");
             }
         }
-
         private void COMP_FilterData_SelectedIndexChanged(object sender, EventArgs e)
         {
                 loadData();
         }
-
         private void TX_Search_TextChanged(object sender, EventArgs e)
         {
             if (TX_Search.Text!= "")
@@ -313,5 +303,6 @@ namespace Burn_management.Gui.GuiUsers
                 loadData();
             }
         }
+        #endregion
     }
 }

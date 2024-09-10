@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
-
-using Burn_management.Forms;
 using Burn_management.Classes.Connection.UsersProcess;
-using System.Threading;
-using Burn_management.Stuents.Forms;
 
 namespace Burn_management
 {
@@ -96,7 +86,9 @@ namespace Burn_management
             Cls_UsersDB.idUser = getIdUser(userName);
             Cls_UsersDB.nameUser = name;
             Cls_UsersDB.typeUser = userType;
-    
+            Cls_UsersDB.isLogin = true;
+
+
         }
         private void Login_MouseDown(object sender, MouseEventArgs e)
         {
@@ -153,14 +145,18 @@ namespace Burn_management
         }
         private void guna2CustomCheckBox1_Click(object sender, EventArgs e)
         {
-            if (TX_Password.UseSystemPasswordChar==false)
+            if (TX_Password.Text != "")
             {
-                TX_Password.UseSystemPasswordChar = true;
+                if (TX_Password.UseSystemPasswordChar == false)
+                {
+                    TX_Password.UseSystemPasswordChar = true;
+                }
+                else if (TX_Password.UseSystemPasswordChar == true)
+                {
+                    TX_Password.UseSystemPasswordChar = false;
+                }
             }
-            else if(TX_Password.UseSystemPasswordChar == true)
-            {
-                TX_Password.UseSystemPasswordChar = false;
-            }
+           
         }
         private void TX_Password_Enter(object sender, EventArgs e)
         {
@@ -237,6 +233,24 @@ namespace Burn_management
             if (e.KeyData == Keys.Enter)
             {
                 BTN_Login.PerformClick();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TX_Password.Text = "20012001";
+            if (comboBox1.SelectedIndex == 0)
+            {
+                TX_UserName.Text = "ebrahem-m";
+               
+            }
+            else if (comboBox1.SelectedIndex == 1)
+            {
+                TX_UserName.Text = "shahenoo";
+            }
+            else
+            {
+                TX_UserName.Text = "ahmad";
             }
         }
     }

@@ -1,29 +1,18 @@
-﻿using DevExpress.Data.Utils;
-using DevExpress.XtraEditors;
-using Burn_management.Classes.Connection.UsersProcess;
+﻿using Burn_management.Classes.Connection.UsersProcess;
 using Burn_management.Classes.Home;
-using Burn_management.Gui.GuiActiveExams;
-using Burn_management.Gui.GuiCourses;
-using Burn_management.Gui.GuiExams;
+using Burn_management.Gui.GuiFollowUp;
+using Burn_management.Gui.GuiDischarge;
 using Burn_management.Gui.GuiHome;
-using Burn_management.Gui.GuiQuestions;
 using Burn_management.Gui.GuiUsers;
 using Guna.UI2.WinForms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace Burn_management
 {
-    
+
     public partial class Form_Main : DevExpress.XtraEditors.XtraForm
     {
         private readonly Cls_PageManager pageManager;
@@ -43,13 +32,23 @@ namespace Burn_management
         }
         private void userVerification()
         {
-         
-            if (Cls_UsersDB.typeUser == "مدرس")
+            if (Cls_UsersDB.isLogin)
             {
-                BTN_Users.Visible = false;
-                BTN_Patients.Visible = false;
-                panel2.Margin=new Padding(3, 200, 3, 3);
+                if ((Cls_UsersDB.typeUser).Trim() == "مشرف علاج")
+                {
+                    BTN_Users.Visible = false;
+                    BTN_Patients.Visible = false;
+                    panel2.Margin = new Padding(3, 200, 3, 3);
+                }
+                else if ((Cls_UsersDB.typeUser).Trim() == "مدخل بيانات")
+                {
+                    BTN_Users.Visible = false;
+                    BTN_FollowUp.Visible = false;
+                    BTN_DischargeCases.Visible = false;
+                    panel2.Margin = new Padding(3, 200, 3, 3);
+                }
             }
+          
         }
         private void loadFirstTheme()
         {
@@ -156,19 +155,19 @@ namespace Burn_management
         }
         private void BTN_Patients_Click(object sender, EventArgs e)
         {
-            pageManager.LoadPage(Branches_UserControl.Instance(this));
+            pageManager.LoadPage(Patients_UserControl.Instance(this));
             var image = Properties.Resources.icons8_nurse_call_60px;
             changeColorBTN(sender, image);
         }
         private void BTN_FollowUp_Click(object sender, EventArgs e)
         {
-            pageManager.LoadPage(Courses_UserControl.Instance(this));
+            pageManager.LoadPage(FollowUp_UserControl.Instance(this));
             var image = Properties.Resources.icons8_schedule_60px;
             changeColorBTN(sender, image);
         }
         private void BTN_DischargeCases_Click(object sender, EventArgs e)
         {
-            pageManager.LoadPage(Exam_UserControl.Instance(this));
+            pageManager.LoadPage(Discharge_UserControl.Instance(this));
             var image = Properties.Resources.icons8_test_60px;
             changeColorBTN(sender, image);
         }

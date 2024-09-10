@@ -1,33 +1,22 @@
 ﻿using Bunifu.UI.WinForms;
-using DevExpress.XtraEditors;
 using Burn_management.Classes;
-using Burn_management.Classes.Connection.BranchProcess;
 using Burn_management.Classes.Connection.UsersProcess;
 using Burn_management.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
-using System.Diagnostics;
 
 namespace Burn_management.Forms.FormsUser
 {
     public partial class Form__AddUsers : DevExpress.XtraEditors.XtraForm
     {
-       
+        #region Var
         private string lastUserName;
         private int id;
         Form formMain;
         
         private bool isClose;
         Cls_UsersDB action = new Cls_UsersDB();
+        #endregion
         public Form__AddUsers(Form formMain)
         {
             InitializeComponent();
@@ -38,11 +27,13 @@ namespace Burn_management.Forms.FormsUser
             address,string userName,string password,string typeUser)
         {
             InitializeComponent();
+            this.Text = "تعديل مستخدم";
             this.id = id;
             loadData(name, age, phone, address, userName, password, typeUser);
             this.formMain = formMain;
 
         }
+        #region Function
         private void showSuccessAddMessageData()
         {
             MessageShow.Show(formMain, Resources.SuccessAddData, BunifuSnackbar.MessageTypes.Success, 3000, "", BunifuSnackbar.Positions.TopRight);
@@ -221,7 +212,8 @@ namespace Burn_management.Forms.FormsUser
                 BTN_AddClose.PerformClick();
             }
         }
-
+        #endregion
+        #region Event
         private void TX_UserName_TextChanged_1(object sender, EventArgs e)
         {
             checkUserName(TX_UserName.Text);
@@ -259,7 +251,7 @@ namespace Burn_management.Forms.FormsUser
             chickEnter(sender, e);
         }
 
-        private void COMP_Branchs_KeyDown(object sender, KeyEventArgs e)
+        private void COMP_Patients_KeyDown(object sender, KeyEventArgs e)
         {
             chickEnter(sender, e);
         }
@@ -293,5 +285,6 @@ namespace Burn_management.Forms.FormsUser
         {
             chickEnter(sender, e);
         }
+        #endregion
     }
 }
